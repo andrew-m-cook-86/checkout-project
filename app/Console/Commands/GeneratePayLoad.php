@@ -16,7 +16,7 @@ class GeneratePayLoad extends Command
      * @var string
      */
     protected $signature = 'app:generate-payload
-                            {--items= : The number of items to add to the cart}
+                            {--items=5 : The number of items to add to the cart}
                             {--currency= : The currency code to be charged in}';
 
     /**

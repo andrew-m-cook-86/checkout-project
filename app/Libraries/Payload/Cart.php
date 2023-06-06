@@ -66,7 +66,7 @@ class Cart
             'currency' => $selectedCurrency,
             'total' => number_format($total, 2, '.', ''),
             'items' => $products,
-            'transaction_id' => $this->order->factory()->make()->transaction_id,
+            'transaction_id' => $this->order->factory()->make(['user_id' => 9999999])->transaction_id,
         ];
 
         return json_encode($cart);
