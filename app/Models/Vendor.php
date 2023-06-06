@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Lanos\CashierConnect\Contracts\StripeAccount;
@@ -14,6 +15,8 @@ class Vendor extends Model implements StripeAccount
     use CashierBillable;
     use ConnectBillable;
 
+    use HasFactory;
+
     /**
      * Get the post that owns the comment.
      */
@@ -21,5 +24,4 @@ class Vendor extends Model implements StripeAccount
     {
         return $this->belongsTo(User::class);
     }
-
 }
