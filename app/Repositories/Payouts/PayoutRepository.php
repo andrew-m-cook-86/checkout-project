@@ -42,7 +42,11 @@ readonly class PayoutRepository implements PayoutRepositoryInterface
 
     public function process()
     {
-        $pendingPayouts = $this->dbRepository->listPending();
+        $pendingPayouts = $this->dbRepository->listPending()->groupBy('user_id');
+        $userIds = $pendingPayouts->keys();
+        dd($userIds);
+        foreach($pendingPayouts as $pendingPayout) {
 
+        }
     }
 }
