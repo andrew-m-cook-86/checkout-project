@@ -16,8 +16,8 @@ return new class extends Migration
             $table->unsignedBigInteger('currency_id');
             $table->foreign('currency_id')->references('id')->on('currency');
             $table->unsignedDecimal('amount', 10,2);
-            $table->string('transaction_id')->unique();
-            $table->enum('status', ['COMPLETED', 'FAILED']);
+            $table->string('transaction_id')->unique()->nullable();
+            $table->enum('status', ['COMPLETED', 'FAILED'])->nullable();
             $table->timestamp('completed_at')->nullable();
             $table->timestamp('last_attempted_at')->nullable();
             $table->timestamps();

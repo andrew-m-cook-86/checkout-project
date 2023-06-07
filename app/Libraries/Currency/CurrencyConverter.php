@@ -35,7 +35,7 @@ readonly class CurrencyConverter
                 ->get();
         });
 
-        $newAmount = (float) number_format($conversion, 2);
+        $newAmount = (float) number_format($conversion, 2, '.', '');
         $this->cacheManager->cache($newAmount, $key);
         return $newAmount;
     }

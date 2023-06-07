@@ -9,12 +9,17 @@ use App\Contracts\Data\User\PasswordUpdateDataObject;
 use App\Contracts\Data\User\ProfileUpdateDataObject;
 use App\Contracts\Data\User\UserCreateDataObject;
 use App\Models\User;
+use App\Models\Vendor;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Str;
 
 readonly class UserDbRepository
 {
-    public function __construct(private User $userModel){}
+    public function __construct(
+        private User $userModel,
+        private Vendor $vendorModel
+    ){}
 
     /**
      * @param UserCreateDataObject $data
@@ -97,5 +102,15 @@ readonly class UserDbRepository
             'password' => $data->hashedPassword,
             'remember_token' => Str::random(60),
         ])->save();
+    }
+
+    public function getVendorModelBuilder() : \Closure
+    {
+        return function (array $userIds) {
+            return $this->vendorModel->newQuery()
+                ->with('currency')
+                ->whereIn('user_id', $userIds)
+                ->get();
+        };
     }
 }
