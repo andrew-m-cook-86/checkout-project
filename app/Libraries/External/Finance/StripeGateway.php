@@ -23,19 +23,22 @@ readonly class StripeGateway
     public function transfer(Instruction $instruction): string|null
     {
         try {
+            // just a protection from even trying to run the code
+            // obviously would not be in a real application
             if($this->config->get('payment.providers.stripe.key') === 'pk_test') {
                 $resp = $this->instruction::factory()->make(['user_id' => 99999])->transaction_id;
             } else {
-                $transfer = $this->stripe::create(
-                    [
-                        'destination' => $instruction->vendor->store_id,
-                        'amount' => $instruction->amount,
-                        'currency' => strtolower($instruction->currency->name),
-                    ],
-                    [
-                      'api_key' => $this->config->get('payment.providers.stripe.key')
-                    ]);
-                $resp = $transfer->getLastResponse()->body;
+                throw new \Exception('no stripe');
+//                $transfer = $this->stripe::create(
+//                    [
+//                        'destination' => $instruction->vendor->store_id,
+//                        'amount' => $instruction->amount,
+//                        'currency' => strtolower($instruction->currency->name),
+//                    ],
+//                    [
+//                      'api_key' => $this->config->get('payment.providers.stripe.key')
+//                    ]);
+//                $resp = $transfer->getLastResponse()->body;
             }
         } catch (\Exception $e) {
             // Log $e

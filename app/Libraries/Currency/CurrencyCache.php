@@ -11,12 +11,12 @@ use Psr\SimpleCache\InvalidArgumentException;
  * Handles caching for currency library
  * Reduces calls made to exchange rate api
  */
-readonly class CurrencyCache
+class CurrencyCache
 {
     const CURRENCY_CONVERSION_TTL = 3600;
 
     public function __construct(
-        private CacheManager $cacheManager
+        readonly private CacheManager $cacheManager
     ){}
 
     /**
